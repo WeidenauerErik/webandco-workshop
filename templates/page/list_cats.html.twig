@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}HTL Workshop - List Cats{% endblock %}
+
+{% block body %}
+    <div class="container text-center mt-5">
+        <h1 class="display-4 mb-3">List of Cats</h1>
+
+        {% if cats is empty %}
+            <div class="alert alert-info">
+                No cats found.
+            </div>
+        {% else %}
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                {% for cat in cats %}
+                    <div class="col">
+                        <div class="card h-100 shadow-sm">
+                            {% if cat.pictureFilename %}
+                                <img
+                                    src="{{ asset(cat_pictures_path ~ '/' ~ cat.pictureFilename) }}"
+                                    class="card-img-top"
+                                    alt="{{ cat.name }}"
+                                    style="object-fit: cover; height: 200px;"
+                                >
+                            {% endif %}
+
+                            <div class="card-body">
+                                <h5 class="card-title">{{ cat.name }}</h5>
+                                <p class="card-text mb-1">
+                                    <strong>Owner:</strong> {{ cat.ownerName }}
+                                </p>
+                                <p class="card-text">
+                                    <strong>Owner Email:</strong>
+                                    <a href="mailto:{{ cat.ownerEmail }}">
+                                        {{ cat.ownerEmail }}
+                                    </a>
+                                </p>
+                            </div>
+
+                            <div class="card-footer text-muted">
+                                <small class="text-muted">Cat #{{ cat.id }}</small>
+
+                                <form
+                                    method="post"
+                                    action="{{ path('app_cat_delete', { id: cat.id }) }}"
+                                    onsubmit="return confirm('Are you sure you want to delete {{ cat.name }}?');"
+                                >
+                                    <input type="hidden" name="_token"
+                                           value="{{ csrf_token('delete_cat_' ~ cat.id) }}">
+
+                                    <button class="btn btn-sm btn-danger">
+                                        Delete
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+    </div>
+{% endblock %}

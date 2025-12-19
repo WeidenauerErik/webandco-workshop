@@ -27,6 +27,7 @@ RUN apk add --no-cache \
     php84-dom \
     php84-xmlwriter \
     php84-simplexml \
+    php84-fileinfo \
     supervisor \
     curl \
     bash \

@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}HTL Workshop - Create Cat{% endblock %}
+
+{% block body %}
+    <div class="container text-center mt-5">
+        <h1 class="display-4">Created Cat successfully</h1>
+        <a href="{{ path('app_create_cat') }}">Create more Cats</a>
+    </div>
+{% endblock %}

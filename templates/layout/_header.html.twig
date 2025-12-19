@@ -25,15 +25,15 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ app.request.attributes.get('_route') == 'app_create_user' ? 'active' }}"
-                       href="{{ path('app_create_user') }}">
-                        Create User
+                    <a class="nav-link {{ app.request.attributes.get('_route') == 'app_create_cat' ? 'active' }}"
+                       href="{{ path('app_create_cat') }}">
+                        Create Cat
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ app.request.attributes.get('_route') == 'app_list_users' ? 'active' }}"
-                       href="{{ path('app_list_users') }}">
-                        List Users
+                    <a class="nav-link {{ app.request.attributes.get('_route') == 'app_list_cats' ? 'active' }}"
+                       href="{{ path('app_list_cats') }}">
+                        List Cats
                     </a>
                 </li>
             </ul>
