@@ -1,0 +1,33 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: docker/production/Dockerfile
+    container_name: htl_workshop_prod_web
+    ports:
+      - "8080:80"
+    environment:
+      APP_ENV: PROD
+      APP_DEBUG: 0
+      DATABASE_URL: "postgresql://htl-workshop:QR5FCYWwps8Z@database:5432/htl-workshop?serverVersion=16&charset=utf8"
+      ALANCAPTCHA_API_KEY: "----"
+    volumes:
+      - ../htl-workshop-prod-data/uploads/:/var/www/html/public/uploads:rw
+    depends_on:
+      - database
+  database:
+    image: postgres:16-alpine
+    container_name: htl_workshop_prod_database
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: htl-workshop
+      POSTGRES_PASSWORD: QR5FCYWwps8Z
+      POSTGRES_USER: htl-workshop
+    healthcheck:
+      test: ["CMD", "pg_isready", "-d", "htl-workshop", "-U", "htl-workshop"]
+      timeout: 5s
+      retries: 5
+      start_period: 60s
+    volumes:
+      - ../htl-workshop-prod-data/db/:/var/lib/postgresql/data:rw
